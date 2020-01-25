@@ -1,0 +1,1 @@
+//will complete schema if we end up storing past searches in the database 

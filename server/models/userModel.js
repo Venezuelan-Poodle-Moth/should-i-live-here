@@ -1,10 +1,11 @@
-const Pool = require('pg');
+// pgsql model for our user database
+const createTable = 
+  `CREATE TABLE IF NOT EXISTS Users(
+  id SERIAL PRIMARY KEY,
+  email VARCHAR NOT NULL,
+  hash VARCHAR NOT NULL,
+  name VARCHAR NOT NULL
+)`
 
-//URI to sql database hosted on ElephantSQL
-const PG_URI = 'postgres://sattzzrt:K_2Lb2bEifiBN_oKJwSKBu3Q65rRerCr@rajje.db.elephantsql.com:5432/sattzzrt';
-
-//creating a pool so that we don't overload the psql server with multiple queries
-const pool = new Pool({
-    connectionString: PG_URI,
-});
-
+//export query string to be used when server first runs
+module.exports = createTable;
