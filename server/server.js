@@ -8,11 +8,6 @@ const app = express();
 //parse incoming json
 app.use(express.json());
 
-app.use('/build', express.static(path.join(__dirname, '../build')));
-
-app.get('/', (req, res) => {
-  res.sendFile(path.resolve(__dirname, '../index.html'));
-});
 
 //create userTable when server starts up if it doesn't yet exist 
 db.query(userTable, (err, res) => {
@@ -21,6 +16,22 @@ db.query(userTable, (err, res) => {
   }
 })
 
+app.use((req, res, next) => {
+  console.log(`
+    ********* FLOW TEST **********
+    MEDTHOD: ${req.method}
+    URL: ${req.url}
+    BODY: ${JSON.stringify(req.body)}
+  `)
+  return next();
+});
+
+app.use('/build', express.static(path.join(__dirname, '../build')));
+
+app.get('/', (req, res) => {
+  res.sendFile(path.resolve(__dirname, '../index.html'));
+});
+
 app.listen(3000, () => {
-  console.log('Port listening on 3000');
+  console.log('server listening on 3000');
 });
