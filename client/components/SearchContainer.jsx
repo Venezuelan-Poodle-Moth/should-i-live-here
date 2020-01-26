@@ -4,10 +4,8 @@ import SearchResults from './SearchResults.jsx';
 class SearchContainer extends Component {
   render() {
     return (
-      <div>
-        <SearchResults />
-      </div>
-    )
+      <SearchResults />
+    );
   }
 }
 
