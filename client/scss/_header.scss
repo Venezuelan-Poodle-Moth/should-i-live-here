@@ -1,0 +1,40 @@
+.navigation {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  height: 80px;
+  padding: 0 22px;
+  box-sizing: border-box;
+
+  a {
+    font-size: 1rem;
+    color: #1a1a1a;
+    text-decoration: none;
+    display: inline-block;
+    padding: 11px 11px 11px 0;
+    text-transform: uppercase;
+    margin: 0 10px;
+  }
+
+  .cta {
+    display: inline-block;
+    text-transform: uppercase;
+    outline: 0;
+    background: $cta;
+    color: #FFF;
+    box-shadow: 0 3px 15px rgba(200, 200, 200, 0.5);
+    border: 0;
+    border-radius: 4px;
+    padding: 15px;
+    color: #FFFFFF;
+    -webkit-transition: all 0.3 ease;
+    transition: all 0.3 ease;
+    cursor: pointer;
+  }
+
+  .logo {
+    font-size: 1.2rem;
+    font-weight: 900;
+  }
+}
