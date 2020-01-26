@@ -1,3 +1,8 @@
+const express = require('express');
+const router = express.Router();
+const apiController = require('../controllers/apiController');
+
+
 /* post request to /311 is data from search bar 
 JSON obj with key of address and borough in req.body
 'created date' --> date
@@ -7,9 +12,11 @@ JSON obj with key of address and borough in req.body
 'descriptor' --> description
 */
 
+router.get('/', 
+  apiController.getData,
+  (req, res) => {
+    // res.locals.data will be an array of objects
+  return res.status(200).json(res.locals.data);
+})
 
-
-
-
-
-
+module.exports = router;

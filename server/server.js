@@ -15,6 +15,7 @@ db.query(userTable, (err, res) => {
     console.log(err);
   }
 })
+const apiRouter = require('./routes/apiRouter');
 
 app.use((req, res, next) => {
   console.log(`
@@ -31,6 +32,22 @@ app.use('/build', express.static(path.join(__dirname, '../build')));
 app.get('/', (req, res) => {
   res.sendFile(path.resolve(__dirname, '../index.html'));
 });
+
+//route for all apiRequests
+app.use('/api', apiRouter);
+
+// global error handler 
+app.use((err, req, res, next) => {
+  const defaultErr = {
+    log: 'Express error handler caught unknown middleware error',
+    status: 400,
+    message: { err: 'An error occurred' }, 
+  };
+  const errorObj = Object.assign({}, defaultErr, err);
+  console.log(errorObj.log);
+  console.log(errorObj.message);
+  return res.status(errorObj.status).json(errorObj.message);
+})
 
 app.listen(3000, () => {
   console.log('server listening on 3000');
