@@ -1,40 +1,54 @@
-// NAT ADDITION, COMMENTS
+const bcrypt = require('bcryptjs');
+const db = require('../models/db');
 
-const path = require('path');
-const User = require('../models/userModel');
+const ROUNDS = 10;
 
 const userController = {};
 
-userController.getAllUsers = (req, res, next) => {
-  User.find({}, (err, users) => {
-    if (err) return next(`Error in userController.getAllUsers: ${JSON.stringify(err)}`);
-    res.locals.users = users;
-    return next();
-  });
-};
-
 userController.createUser = (req, res, next) => {
-  const { username, password } = req.body;
-  User.create({ username, password }, (err, response) => {
-    if (err) {
-      console.log('Error in create user middleware: ', err);
-      res.render(path.resolve(__dirname, '../../client/components/Register.jsx'));
-    } else {
-      res.locals.userId = response.id;
-      return next();
-    }
+  console.log('createUser controller hit');
+  const { email, password, name } = req.body;
+  bcrypt.genSalt(ROUNDS, async (err, salt) => {
+    await bcrypt.hash(password, salt, (err, hash) => {
+      if (err) {
+        return next(err);
+      }
+      db.query(`INSERT INTO Users(email, hash, name)
+      VALUES($1, $2, $3)`, [email, hash, name], async (error, user) => {
+        if (error) {
+          return next(error);
+        }
+        console.log(res.locals.user);
+      });
+    });
   });
+  res.locals.user = { name, email };
+  return next();
 };
 
 userController.verifyUser = (req, res, next) => {
-  const { username, password } = req.body;
-  User.find({ username }, (err, response) => {
-    if (err || response.length === 0 || response[0].password !== password) {
-      res.render(path.resolve(__dirname, '../../client/components/Register.jsx'), { error: "Username and/or password don't match, please sign up." });
-    } else {
-      res.locals.userId = response[0].id;
-      return next();
+  console.log('verifyUser controller hit');
+  const { email, password } = req.body;
+  db.query('SELECT * FROM Users WHERE email = $1', [email], (error, user) => {
+    if (error) {
+      return next({
+        log: error,
+        message: { err: 'there was an error querying the database' },
+      });
     }
+    console.log(user);
+    res.locals.user = user.rows[0];
+    bcrypt.compare(password, user.rows[0].hash, (err, response) => {
+      if (err) {
+        return next({
+          log: err,
+          message: { err: 'there was an error with the bcrypt function' },
+        });
+      } if (!response) {
+        return next('Password was incorrect.');
+      }
+      return next();
+    });
   });
 };
 

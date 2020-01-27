@@ -16,4 +16,5 @@ pool.on('connect', () => {
 // export thenable query obj
 module.exports = {
   query: (text, params, callback) => pool.query(text, params, callback),
+  getPool: () => pool,
 };

@@ -1,5 +1,3 @@
-// NAT ADDITION, COMMENTS
-
 const cookieController = {};
 
 cookieController.setCookie = (req, res, next) => {
@@ -10,6 +8,6 @@ cookieController.setCookie = (req, res, next) => {
 cookieController.setSSIDCookie = (req, res, next) => {
   res.cookie('ssid', res.locals.userId, { httpOnly: true });
   return next();
-}
+};
 
 module.exports = cookieController;

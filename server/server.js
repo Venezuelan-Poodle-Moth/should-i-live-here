@@ -1,113 +1,61 @@
 const express = require('express');
 const path = require('path');
-const cookieParser = require('cookie-parser'); // NAT ADDITION, COMMENTS
-const bcrypt = require('bcryptjs'); // NAT ADDITION, COMMENTS
-const jwt = require('jsonwebtoken'); // NAT ADDITION, COMMENTS
+const cookieParser = require('cookie-parser');
+const sessionNew = require('express-session');
+const PgSession = require('connect-pg-simple')(sessionNew);
 const db = require('./models/db');
 const userTable = require('./models/userModel');
-const secret = 'krabbyPattySecretFormula'; // NAT ADDITION, COMMENTS
 
-// NAT ADDITION, COMMENTS
-const userController = require('./controllers/userController');
+const secret = 'krabbyPattySecretFormula';
+
 const cookieController = require('./controllers/cookieController');
-const sessionController = require('./controllers/sessionController');
 
 const app = express();
+
 // parse incoming json
 app.use(express.json());
 
 app.use(cookieParser());
 
-app.use('/build', express.static(path.join(__dirname, '../build')));
-
-// NAT ADDITION, COMMENTS
 app.use(express.urlencoded({ extended: true }));
 
-// NAT ADDITION, COMMENTS
+const apiRouter = require('./routes/apiRouter');
+const userRouter = require('./routes/userRouter');
+
+// route for all user actions
+app.use('/user', userRouter);
+// route for all apiRequests
+app.use('/api', apiRouter);
+
+app.use('/build', express.static(path.join(__dirname, '../build')));
+
 app.get('/', cookieController.setCookie, (req, res) => {
   res.sendFile(path.resolve(__dirname, '../index.html'));
 });
 
-// NAT ADDITION, COMMENTS
-app.get('/register', (req, res) => {
-  res.render('./../client/components/Register', { error: null });
+app.use((req, res, next) => {
+  console.log(`
+    ********* FLOW TEST **********
+    MEDTHOD: ${req.method}
+    URL: ${req.url}
+    BODY: ${JSON.stringify(req.body)}
+  `);
+  return next();
 });
 
-// NAT ADDITION, COMMENTS
-app.post('/register',
-  userController.createUser,
-  cookieController.setSSIDCookie,
-  sessionController.isLoggedIn,
-  sessionController.startSession,
-  (req, res) => {
-    if (res.locals) {
-      res.sendFile(path.resolve(__dirname, '../index.html'));
-    }
-  });
-
-// NAT ADDITION, COMMENTS
-app.post('/login',
-  userController.verifyUser,
-  cookieController.setSSIDCookie,
-  sessionController.isLoggedIn,
-  sessionController.startSession,
-  (req, res) => {
-    if (res.locals.userId) {
-      res.sendFile(path.resolve(__dirname, '../index.html'));
-    }
-  });
-
-// NAT ADDITION, COMMENTS
-let passwordDb = '';
-app.get('/encrypt', (req, res) => {
-  const ROUNDS = 10;
-  bcrypt.hash(req.query.password, ROUNDS, (err, hash) => {
-    passwordDb = hash;
-    res.send({
-      ROUNDS,
-      encrypted: hash,
-    });
-  });
-});
-
-// NAT ADDITION, COMMENTS
-app.get('/compare', (req, res) => {
-  const comparePassword = req.query.password;
-  bcrypt.compare(comparePassword, passwordDb, (err, result) => {
-    res.send(result);
-  });
-});
-
-// NAT ADDITION, COMMENTS
-app.get('/createjwt', (req, res) => {
-  const userObj = {
-    authenticated: true,
+// global error handler
+app.use((err, req, res, next) => {
+  const defaultErr = {
+    log: 'Express error handler caught unknown middleware error',
+    status: 400,
+    message: { err: 'An error occurred' },
   };
-  const token = jwt.sign(userObj, secret);
-  res.cookie('token', token);
-  res.send(token);
-});
-
-// NAT ADDITION, COMMENTS
-app.get('/verify', (req, res) => {
-  const jwtNew = req.cookies.token;
-  jwt.verify(jwtNew, secret, (err, decoded) => {
-    if (err) {
-      console.log('ERROR: ', err);
-      res.send(err);
-    } else {
-      res.send(decoded);
-    }
-  });
-});
-
-// create userTable when server starts up if it doesn't yet exist
-db.query(userTable, (err, res) => {
-  if (err) {
-    console.log(err);
-  }
+  const errorObj = { ...defaultErr, ...err };
+  console.log(errorObj.log);
+  console.log(errorObj.message);
+  return res.status(errorObj.status).json(errorObj.message);
 });
 
 app.listen(3000, () => {
-  console.log('Port listening on 3000');
+  console.log('server listening on 3000');
 });
