@@ -12,12 +12,12 @@
    */
 
 const initialState = {
-  address_search: '', //?
+  address_search: '',
   previous_searches: [],
   search_result: [],
   current_results: null,
   search_pending: false,
-  error: null
+  error: null,
 };
 
 const searchReducer = (state = initialState, action) => {

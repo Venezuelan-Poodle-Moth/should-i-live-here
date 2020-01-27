@@ -1,4 +1,4 @@
-//action types
+// * action types
 
 export const SEARCH_ADDRESS_PENDING = 'SEARCH_ADDRESS_PENDING';
 export const SEARCH_ADDRESS_SUCCESS = 'SEARCH_ADDRESS_SUCCESS';
