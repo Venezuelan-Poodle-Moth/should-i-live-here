@@ -16,8 +16,8 @@ const Header = (props) => {
         <span className="logo">Should I Live Here?</span>
       </Link>
       <div>
-        <Link to="/login">Login</Link>
-        <Link className="cta" to="/register">Create Account</Link>
+        <Link to="/user/login">Login</Link>
+        <Link className="cta" to="/user/register">Create Account</Link>
       </div>
     </nav>
   )

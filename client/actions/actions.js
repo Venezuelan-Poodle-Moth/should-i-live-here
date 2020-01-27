@@ -71,6 +71,7 @@ const LOGIN_FAILURE = () => ({
 });
 
 export function userLoginFetch(email, password) {
+  console.log('userLoginFetch fired');
   const config = {
     method: 'POST',
     headers: {
@@ -85,7 +86,7 @@ export function userLoginFetch(email, password) {
 
   return (dispatch) =>
   // config is passed as our option options object to be sure only certain requests will resolve
-    fetch('path', config)
+    fetch('/user/login', config)
       .then((res) => res.json())
       .then((data) => {
         dispatch({

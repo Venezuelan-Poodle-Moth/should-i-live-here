@@ -6,5 +6,5 @@ export const SEARCH_ADDRESS = 'SEARCH_ADDRESS';
 export const AUTHENTICATE = 'AUTHENTICATE';
 
 export const SIGN_IN = 'SIGN_IN';
-export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
-export const LOGIN_FAILURE = 'LOGIN_FAILURE';
+// export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
+// export const LOGIN_FAILURE = 'LOGIN_FAILURE';
