@@ -1,15 +1,15 @@
 const express = require('express');
 const path = require('path');
-const db = require('./models/db')
+const db = require('./models/db');
 const userTable = require('./models/userModel');
 
 
 const app = express();
-//parse incoming json
+// parse incoming json
 app.use(express.json());
 
 
-//create userTable when server starts up if it doesn't yet exist 
+// create userTable when server starts up if it doesn't yet exist
 db.query(userTable, (err, res) => {
   if (err) {
     console.log(err);
@@ -47,7 +47,7 @@ app.use((err, req, res, next) => {
   console.log(errorObj.log);
   console.log(errorObj.message);
   return res.status(errorObj.status).json(errorObj.message);
-})
+});
 
 app.listen(3000, () => {
   console.log('server listening on 3000');
