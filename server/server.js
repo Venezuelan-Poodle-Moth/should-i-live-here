@@ -1,12 +1,6 @@
 const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
-const sessionNew = require('express-session');
-const PgSession = require('connect-pg-simple')(sessionNew);
-const db = require('./models/db');
-const userTable = require('./models/userModel');
-
-const secret = 'krabbyPattySecretFormula';
 
 const cookieController = require('./controllers/cookieController');
 
@@ -27,12 +21,15 @@ app.use('/user', userRouter);
 // route for all apiRequests
 app.use('/api', apiRouter);
 
+// path for webpack build
 app.use('/build', express.static(path.join(__dirname, '../build')));
 
+// directing to root directory & setting cookie
 app.get('/', cookieController.setCookie, (req, res) => {
   res.sendFile(path.resolve(__dirname, '../index.html'));
 });
 
+// flow test for incoming requests
 app.use((req, res, next) => {
   console.log(`
     ********* FLOW TEST **********
