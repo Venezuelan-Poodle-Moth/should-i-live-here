@@ -28,7 +28,9 @@
     "webpack-dev-server": "^3.10.1"
   },
   "dependencies": {
+    "es6-promise": "^4.2.8",
     "express": "^4.17.1",
+    "isomorphic-fetch": "^2.2.1",
     "node-postgres": "^0.1.2",
     "pg-promise": "^10.3.5",
     "react": "^16.12.0",
