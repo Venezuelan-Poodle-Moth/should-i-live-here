@@ -1,6 +1,7 @@
 .results {
   display: flex;
   justify-content: center;
+  flex-wrap: wrap;
   width: 100%;
 }
 
@@ -69,4 +70,19 @@
     border: none;
     outline: none;
   }
+}
+
+.search-results {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  max-width: 1200px;
+}
+
+.search-result {
+  padding: 10px;
+  width: 22%;
+  margin: 5px;
+  border: 1px solid #333;
+  border-radius: 5px;
 }

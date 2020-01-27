@@ -5,19 +5,19 @@
 import * as types from '../constants/actionTypes';
 
 // * searching address
-const SEARCH_ADDRESS_PENDING = () => ({
-  type: types.SEARCH_ADDRESS_PENDING,
-});
+// const SEARCH_ADDRESS_PENDING = () => ({
+//   type: types.SEARCH_ADDRESS_PENDING,
+// });
 
-const SEARCH_ADDRESS_FAILURE = (error) => ({
+export const SEARCH_ADDRESS_FAILURE = (error) => ({
   type: types.SEARCH_ADDRESS_FAILURE,
   payload: error,
 });
 
-const SEARCH_ADDRESS = (address) => (dispatch) => {
+export const addressSearch = (address, borough) => (dispatch) => {
   const body = {
-    address: address.address,
-    borough: address.borough,
+    address,
+    borough,
   };
   fetch('/api', {
     method: 'POST',
@@ -27,8 +27,12 @@ const SEARCH_ADDRESS = (address) => (dispatch) => {
     body: JSON.stringify(body),
   })
     .then((response) => response.json())
-    .then((data) => console.log(data));
-
-  dispatch(SEARCH_ADDRESS_SUCCESS)
+    .then((data) => dispatch({
+      type: types.SEARCH_ADDRESS,
+      payload: {
+        address_search: `${address} ${borough}`,
+        current_results: data,
+      },
+    }))
     .catch((err) => console.log(err));
 };
