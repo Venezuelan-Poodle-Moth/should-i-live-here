@@ -37,7 +37,7 @@ apiController.getData = (req, res, next) => {
         return data.json()}
         )
     .then(data => {
-      const filterdData = data.map(elem => {
+      const filteredData = data.map(elem => {
         return { 
           date: elem.created_date,
           address: elem.incident_address,
@@ -46,7 +46,7 @@ apiController.getData = (req, res, next) => {
           description: elem.descriptor,
         };
       })
-      res.locals.data = filterdData;
+      res.locals.data = filteredData;
     })
     .then(next)
     .catch(err => next({
