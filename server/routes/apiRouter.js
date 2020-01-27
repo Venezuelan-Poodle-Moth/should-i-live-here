@@ -12,7 +12,7 @@ JSON obj with key of address and borough in req.body
 'descriptor' --> description
 */
 
-router.get('/', 
+router.post('/', 
   apiController.getData,
   (req, res) => {
     // res.locals.data will be an array of objects sent to the front end
