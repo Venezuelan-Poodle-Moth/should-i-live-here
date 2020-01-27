@@ -1,21 +1,23 @@
+import { SIGN_IN } from '../constants/actionTypes';
+
 const initialState = {
-  currentUser: {},
+  currentUser: null,
+  isLogged: false,
 };
 
-export default authReducer(state = initialState, action) {
+const authReducer = (state = initialState, action) => {
   switch (action.type) {
-    case 'LOGIN_USER':
+    case SIGN_IN:
+      if (action.payload === null) {
+        return state;
+      }
       return {
         ...state,
         currentUser: action.payload,
-      };
-    case 'LOGOUT_USER':
-      return {
-        ...state,
-        currentUser: {},
+        isLogged: true,
       };
     default: return state;
   }
-}
+};
 
 export default authReducer;
