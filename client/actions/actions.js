@@ -4,28 +4,23 @@
  */
 import * as types from '../constants/actionTypes';
 
-// * searching address
-// const SEARCH_ADDRESS_PENDING = () => ({
-//   type: types.SEARCH_ADDRESS_PENDING,
-// });
+/* SEARCH API */
 
-export const SEARCH_ADDRESS_FAILURE = (error) => ({
-  type: types.SEARCH_ADDRESS_FAILURE,
-  payload: error,
-});
+/* Redux thunk responsible for inputting an address and making
+a request to the NYC Open Data 311 Complaints API */
 
 export const addressSearch = (address, borough) => (dispatch) => {
-  const body = {
-    address,
-    borough,
-  };
-  fetch('/api', {
+  const config = {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify(body),
-  })
+    body: JSON.stringify({
+      address,
+      borough,
+    }),
+  };
+  fetch('/api', config)
     .then((response) => response.json())
     .then((data) => dispatch({
       type: types.SEARCH_ADDRESS,
@@ -37,41 +32,10 @@ export const addressSearch = (address, borough) => (dispatch) => {
     .catch((err) => console.log(err));
 };
 
-// authentication
+/* AUTHENTICATION */
 
-/*
-   After user submits login form with their credentials. isFetching indicates our calls
-   to the server with our user's credentials to see if they are valid.
-*/
-const LOGIN_REQUEST = (creds) => ({
-  type: types.LOGIN_REQUEST,
-  isFetching: true,
-  isAuthenticated: false,
-  creds,
-});
-
-/*
-If our LOGIN_REQUEST is successful
-*/
-
-const LOGIN_SUCCESS = (currentUser) => ({
-  type: types.LOGIN_SUCCESS,
-  isFetching: false,
-  isAuthenticated: true,
-  id_token: currentUser.id_token, // token from Natalie will go here, might need to adjust key & value
-});
-/*
-        If credentials are not a match, send an error message.
-    */
-const LOGIN_FAILURE = () => ({
-  type: types.LOGIN_FAILURE,
-  isFetching: false,
-  isAuthenticated: false,
-  message, // error message to send the user to see the problem
-});
-
+/* Redux thunk to compare server data with user input from login form */
 export function userLoginFetch(email, password) {
-  console.log('userLoginFetch fired');
   const config = {
     method: 'POST',
     headers: {
@@ -82,8 +46,8 @@ export function userLoginFetch(email, password) {
       password,
     }),
   };
-    // Redux thunk to dispatch requestLogin to make an async call to our API
 
+  // Redux thunk to dispatch requestLogin to make an async call to our API
   return (dispatch) =>
   // config is passed as our option options object to be sure only certain requests will resolve
     fetch('/user/login', config)
@@ -96,15 +60,40 @@ export function userLoginFetch(email, password) {
       });
 }
 
-//             if (data.message) {
-//               // handles invalid login credentials
-//               // assumes our LOGIN_FAILURE action creator will return a JSON object
-//               // with a key of 'message' if there is an error
-//                 console.log("error message from loginUser func ", data.message)
-//                 dispatch(LOGIN_FAILURE(data.message));
-//             }
-// else {
-// set token in local storage, maybe:
-// localStorage.setItem("token", data.jwt)
-// need to check with Natalie
-//             }
+export function userCreateFetch(name, email, password) {
+  const config = {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    }, // need to check form is coming in this format
+    body: JSON.stringify({
+      name,
+      email,
+      password,
+    }),
+  };
+
+  /*
+    Redux thunk to dispatch userCreateFetch to make an async call to our API to create
+    a new user in our database
+  */
+  return (dispatch) => fetch('/user/register', config)
+    .then((res) => res.json())
+    .then((data) => {
+      dispatch({
+        type: types.REGISTER,
+        payload: data,
+      });
+    });
+}
+/* Redux thunk is required to log users out */
+export function userLogout() {
+  return (dispatch) => fetch('/user/logout')
+    .then((res) => res.json())
+    .then((data) => {
+      dispatch({
+        type: types.LOGOUT,
+        payload: data,
+      });
+    });
+}

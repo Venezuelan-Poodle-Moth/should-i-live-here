@@ -16,12 +16,23 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   userLoginFetch: (email, password) => dispatch(actions.userLoginFetch(email, password)),
+  userCreateFetch: (name, email, password) => dispatch(actions.userCreateFetch(name, email, password)),
+  userLogout: () => dispatch(actions.userLogout()),
 });
 
 class MainContainer extends Component {
   constructor() {
     super();
     this.onLoginSubmit = this.onLoginSubmit.bind(this);
+    this.onRegisterSubmit = this.onRegisterSubmit.bind(this);
+    this.onLogoutSubmit = this.onLogoutSubmit.bind(this);
+  }
+  onRegisterSubmit(e) {
+    e.preventDefault();
+    const name = e.target[0].value;
+    const email = e.target[1].value;
+    const password = e.target[2].value;
+    this.props.userCreateFetch(name, email, password);
   }
 
   onLoginSubmit(e) {
@@ -31,14 +42,19 @@ class MainContainer extends Component {
     this.props.userLoginFetch(email, password);
   }
 
+  onLogoutSubmit(e) {
+    e.preventDefault();
+    this.props.userLogout();
+  }
+
   render() {
     return (
       <Router>
-        <Header />
+        <Header onLogoutSubmit={ this.onLogoutSubmit } isLogged={ this.props.isLogged }/>
         {/* <Route exact path="/" component={Home} /> */}
         <Route exact path="/results" component={SearchContainer} />
         <Route exact path="/user/login" render={(props) => <Login onLoginSubmit={ this.onLoginSubmit }/> } />
-        <Route exact path="/user/register" component={Register} />
+        <Route exact path="/user/register" render={(props) => <Register onRegisterSubmit={ this.onRegisterSubmit }/> } />
       </Router>
     )
   }

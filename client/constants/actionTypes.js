@@ -1,10 +1,9 @@
-// * action types
-// export const SEARCH_ADDRESS_SUCCESS = 'SEARCH_ADDRESS_SUCCESS';
-// export const SEARCH_ADDRESS_FAILURE = 'SEARCH_ADDRESS_FAILURE';
+/* ACTION TYPES */
+
 export const SEARCH_ADDRESS = 'SEARCH_ADDRESS';
 
-export const AUTHENTICATE = 'AUTHENTICATE';
-
 export const SIGN_IN = 'SIGN_IN';
-// export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
-// export const LOGIN_FAILURE = 'LOGIN_FAILURE';
+
+export const REGISTER = 'REGISTER';
+
+export const LOGOUT = 'LOGOUT';

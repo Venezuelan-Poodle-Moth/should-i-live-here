@@ -1,4 +1,4 @@
-import { SIGN_IN } from '../constants/actionTypes';
+import { SIGN_IN, REGISTER, LOGOUT } from '../constants/actionTypes';
 
 const initialState = {
   currentUser: null,
@@ -15,6 +15,18 @@ const authReducer = (state = initialState, action) => {
         ...state,
         currentUser: action.payload,
         isLogged: true,
+      };
+    case REGISTER:
+      return {
+        ...state,
+        currentUser: action.payload,
+        isLogged: true,
+      };
+    case LOGOUT:
+      return {
+        ...state,
+        currentUser: null,
+        isLogged: false,
       };
     default: return state;
   }
