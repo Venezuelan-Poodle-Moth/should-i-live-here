@@ -1,14 +1,15 @@
 const express = require('express');
+
 const router = express.Router();
 const apiController = require('../controllers/apiController');
 
 
-/* post request to /311 is data from search bar 
+/* post request to /311 is data from search bar
 JSON obj with key of address and borough in req.body
 'created date' --> date
-'incident adddress' --> address
+'incident address' --> address
 'borough' --> borough
-'complaint type'--> complaint 
+'complaint type'--> complaint
 'descriptor' --> description
 */
 

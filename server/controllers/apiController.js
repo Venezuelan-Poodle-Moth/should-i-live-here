@@ -1,3 +1,4 @@
+// controller for accessing city database
 // controller for accessing city databse
 
 // npm package that allows the use of fetch without the browser (ie in postman)
@@ -7,6 +8,7 @@ const fetch = require('isomorphic-fetch');
 const appToken = 'rvAoMk2CVgwcxb3uzQw8lxP1k';
 
 const apiController = {};
+
 // function to format string correctly with regex for database query
 const format = (str) => {
   const string = str.replace(/(th)|(st)|(nd)|(rd)\b/i, '')
@@ -24,11 +26,11 @@ const format = (str) => {
     .toUpperCase();
   return string;
 };
+
 // function to fetch data from the api
 apiController.getData = (req, res, next) => {
   const address = format(req.body.address);
   const borough = req.body.borough.toUpperCase();
-  console.log('DATA:', address, borough);
   fetch(`https://data.cityofnewyork.us/resource/erm2-nwe9.json?incident_address='${address}'&$where=borough='${borough}'`,
     {
       headers: {
@@ -45,7 +47,6 @@ apiController.getData = (req, res, next) => {
         complaintType: elem.complaint_type,
         description: elem.descriptor,
       }));
-      console.log('filter', filteredData);
       res.locals.data = filteredData;
     })
     .then(next)
@@ -54,6 +55,5 @@ apiController.getData = (req, res, next) => {
       message: { err: 'there was an error fetching 311 data' },
     }));
 };
-
 
 module.exports = apiController;

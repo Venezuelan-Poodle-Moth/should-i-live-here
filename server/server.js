@@ -1,49 +1,53 @@
 const express = require('express');
 const path = require('path');
-const db = require('./models/db');
-const userTable = require('./models/userModel');
+const cookieParser = require('cookie-parser');
 
+const cookieController = require('./controllers/cookieController');
 
 const app = express();
+
 // parse incoming json
 app.use(express.json());
 
+app.use(cookieParser());
 
-// create userTable when server starts up if it doesn't yet exist
-db.query(userTable, (err, res) => {
-  if (err) {
-    console.log(err);
-  }
-})
+app.use(express.urlencoded({ extended: true }));
+
 const apiRouter = require('./routes/apiRouter');
+const userRouter = require('./routes/userRouter');
 
+// route for all user actions
+app.use('/user', userRouter);
+// route for all apiRequests
+app.use('/api', apiRouter);
+
+// path for webpack build
+app.use('/build', express.static(path.join(__dirname, '../build')));
+
+// directing to root directory & setting cookie
+app.get('/', cookieController.setCookie, (req, res) => {
+  res.sendFile(path.resolve(__dirname, '../index.html'));
+});
+
+// flow test for incoming requests
 app.use((req, res, next) => {
   console.log(`
     ********* FLOW TEST **********
     MEDTHOD: ${req.method}
     URL: ${req.url}
     BODY: ${JSON.stringify(req.body)}
-  `)
+  `);
   return next();
 });
 
-app.use('/build', express.static(path.join(__dirname, '../build')));
-
-app.get('/', (req, res) => {
-  res.sendFile(path.resolve(__dirname, '../index.html'));
-});
-
-//route for all apiRequests
-app.use('/api', apiRouter);
-
-// global error handler 
+// global error handler
 app.use((err, req, res, next) => {
   const defaultErr = {
     log: 'Express error handler caught unknown middleware error',
     status: 400,
-    message: { err: 'An error occurred' }, 
+    message: { err: 'An error occurred' },
   };
-  const errorObj = Object.assign({}, defaultErr, err);
+  const errorObj = { ...defaultErr, ...err };
   console.log(errorObj.log);
   console.log(errorObj.message);
   return res.status(errorObj.status).json(errorObj.message);
