@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
-// import { connect } from 'react-redux';
 import Header from './Header.jsx';
 import SearchContainer from './SearchContainer.jsx';
 import Login from './Login.jsx';
@@ -27,6 +26,7 @@ class MainContainer extends Component {
     this.onRegisterSubmit = this.onRegisterSubmit.bind(this);
     this.onLogoutSubmit = this.onLogoutSubmit.bind(this);
   }
+  
   onRegisterSubmit(e) {
     e.preventDefault();
     const name = e.target[0].value;
@@ -51,9 +51,9 @@ class MainContainer extends Component {
     return (
       <Router>
         <Header onLogoutSubmit={ this.onLogoutSubmit } isLogged={ this.props.isLogged }/>
-        {/* <Route exact path="/" component={Home} /> */}
+        <Route exact path="/" component={SearchContainer} />
         <Route exact path="/results" component={SearchContainer} />
-        <Route exact path="/user/login" render={(props) => <Login onLoginSubmit={ this.onLoginSubmit }/> } />
+        <Route exact path="/user/login" render={(props) => <Login onLoginSubmit={ this.onLoginSubmit } isLogged={ this.props.isLogged } /> } />
         <Route exact path="/user/register" render={(props) => <Register onRegisterSubmit={ this.onRegisterSubmit }/> } />
       </Router>
     )

@@ -2,9 +2,12 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 const Register = (props) => {
-  return (
+  const { isLogged } = props;
+  return isLogged ? (
+    <Redirect to='/results' />
+  ) : (
     <form className="auth" onSubmit={ props.onRegisterSubmit }>
-      <input type="text" placeholder="Choose username" required />
+      <input type="text" placeholder="Choose name" required />
       <input type="email" placeholder="Enter email" required />
       <input type="password" placeholder="Choose password" required />
       <button>Register</button>
