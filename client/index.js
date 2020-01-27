@@ -5,6 +5,8 @@ import App from './App.jsx';
 import store from './store.js';
 //must import create
 
+import styles from './scss/application.scss';
+
 render(
   <Provider store={store}>
     <App />
