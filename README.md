@@ -10,8 +10,8 @@ Should I Live Here is an open-source project utilizing [NYC Open Data's](https:/
 
 **Co-authored by:**
 
-@alexbednarek4
-@mitchelsevere
-@nabramow
-@natattackvick
-@sarapowers
+[@alexbednarek4](https://github.com/orgs/Venezuelan-Poodle-Moth/people/alexbednarek4)
+[@mitchelsevere](https://github.com/orgs/Venezuelan-Poodle-Moth/people/mitchelsevere)
+[@nabramow](https://github.com/orgs/Venezuelan-Poodle-Moth/people/nabramow)
+[@natattackvick](https://github.com/orgs/Venezuelan-Poodle-Moth/people/natattackvick)
+[@sarapowers](https://github.com/orgs/Venezuelan-Poodle-Moth/people/sarapowers)
