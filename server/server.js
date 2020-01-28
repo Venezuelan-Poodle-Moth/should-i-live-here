@@ -16,9 +16,9 @@ app.use(express.urlencoded({ extended: true }));
 const apiRouter = require('./routes/apiRouter');
 const userRouter = require('./routes/userRouter');
 
-// route for all user actions
+// route for all user actions at path /user
 app.use('/user', userRouter);
-// route for all apiRequests
+// route for all apiRequests at path /api
 app.use('/api', apiRouter);
 
 // path for webpack build
@@ -40,12 +40,14 @@ app.use((req, res, next) => {
   return next();
 });
 
+//adding comment for testing github push/pull
+
 // global error handler
 app.use((err, req, res, next) => {
   const defaultErr = {
     log: 'Express error handler caught unknown middleware error',
     status: 400,
-    message: { err: 'An error occurred' },
+    message: { err: 'An error occurred' }
   };
   const errorObj = { ...defaultErr, ...err };
   console.log(errorObj.log);
