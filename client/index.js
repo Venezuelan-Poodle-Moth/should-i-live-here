@@ -7,7 +7,9 @@ import store from './store.js';
 
 import styles from './scss/application.scss';
 
+//Basic stuff 
 render(
+  //Redux stuff
   <Provider store={store}>
     <App />
   </Provider>,

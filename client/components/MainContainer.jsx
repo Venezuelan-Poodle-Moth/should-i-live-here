@@ -7,12 +7,13 @@ import Register from './Register.jsx';
 import { connect } from 'react-redux';
 import * as actions from '../actions/actions.js';
 
-
+//Brings in state from the redux store
 const mapStateToProps = state => ({
   currentUser: state.auth.currentUser,
   isLogged: state.auth.isLogged,
 });
 
+//Creates functions that change state in redux store
 const mapDispatchToProps = dispatch => ({
   userLoginFetch: (email, password) => dispatch(actions.userLoginFetch(email, password)),
   userCreateFetch: (name, email, password) => dispatch(actions.userCreateFetch(name, email, password)),
@@ -27,6 +28,7 @@ class MainContainer extends Component {
     this.onLogoutSubmit = this.onLogoutSubmit.bind(this);
   }
   
+  //Submitting a user
   onRegisterSubmit(e) {
     e.preventDefault();
     const name = e.target[0].value;
@@ -42,6 +44,7 @@ class MainContainer extends Component {
     this.props.userLoginFetch(email, password);
   }
 
+  //No functionality for logging out yet 
   onLogoutSubmit(e) {
     e.preventDefault();
     this.props.userLogout();

@@ -61,6 +61,7 @@ export function userLoginFetch(email, password) {
 }
 
 export function userCreateFetch(name, email, password) {
+  //Config data for the fetch 
   const config = {
     method: 'POST',
     headers: {
