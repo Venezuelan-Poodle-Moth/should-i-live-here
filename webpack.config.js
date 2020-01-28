@@ -22,14 +22,16 @@ module.exports = {
       {
         test: /\.scss/,
         use: ['style-loader', 'css-loader', 'sass-loader']
-      }
-    ]
+      },
+    ],
   },
   devServer: {
     hot: true,
     publicPath: '/build/',
-    // proxy: {
-
-    // }
+    historyApiFallback: true,
+    proxy: {
+      '/api': 'http://localhost:3000',
+      '/user': 'http://localhost:3000',
+    },
   },
 };
