@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import SearchResult from './SearchResult.jsx';
+import MapContainer from './GoogleMap.jsx';
 
 class SearchResults extends Component {
   render() {
@@ -16,6 +17,7 @@ class SearchResults extends Component {
         />
       )
     })
+
     return (
       <div className="results">
         <form className="search" onSubmit={this.props.address}>
@@ -29,6 +31,9 @@ class SearchResults extends Component {
           </select>
           <button>Search</button>
         </form>
+        <div className="mapContainer">
+          {results && <MapContainer location={results[0].location}/>}
+        </div>
         <div className="search-results">
           {searchResults}
         </div>
