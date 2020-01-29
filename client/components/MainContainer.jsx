@@ -27,7 +27,6 @@ class MainContainer extends Component {
     this.onLogoutSubmit = this.onLogoutSubmit.bind(this);
     this.onGoogleLogin = this.onGoogleLogin.bind(this);
     this.onGoogleSignin = this.onGoogleSignin.bind(this);
-
   }
   
   onRegisterSubmit(e) {
@@ -71,13 +70,19 @@ class MainContainer extends Component {
   }
 
   render() {
+    let headerArray;
+    if(this.props.isLogged){
+    headerArray = <h1>{this.props.currentUser.name} {this.props.currentUser.email}</h1>;
+    }
+
     return (
       <Router>
+        {headerArray}
         <Header onLogoutSubmit={ this.onLogoutSubmit } isLogged={ this.props.isLogged }/>
         <Route exact path="/" component={SearchContainer} />
         <Route exact path="/results" component={SearchContainer} />
         <Route exact path="/user/login" render={(props) => <Login onLoginSubmit={ this.onLoginSubmit } isLogged={ this.props.isLogged } googleLog = {this.onGoogleLogin}/> } />
-        <Route exact path="/user/register" render={(props) => <Register onRegisterSubmit={ this.onRegisterSubmit } googleSign = {this.onGoogleSignin}/>} />
+        <Route exact path="/user/register" render={(props) => <Register onRegisterSubmit={ this.onRegisterSubmit } isLogged={ this.props.isLogged } googleSign = {this.onGoogleSignin}/>} />
       </Router>
     )
   }
