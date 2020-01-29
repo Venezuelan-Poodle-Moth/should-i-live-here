@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route, Switch, withRouter } from 'react-router-dom';
+import { Route, Switch, withRouter } from 'react-router-dom';
 import Header from './Header.jsx';
 import SearchContainer from './SearchContainer.jsx';
 import Login from './Login.jsx';
@@ -51,18 +51,15 @@ class MainContainer extends Component {
 
   render() {
     return (
-      // <Router>
         <div>
           <Header onLogoutSubmit={ this.onLogoutSubmit } isLogged={ this.props.isLogged }/>
           <Switch>
             <Route exact path="/login" render={() => <Login onLoginSubmit={ this.onLoginSubmit } isLogged={ this.props.isLogged } /> } />
-            <Route exact path="/register" render={(props) => <Register onRegisterSubmit={ this.onRegisterSubmit }/> } />
-            <Route exact path="/logout" render={() => <div>HI</div>}/>
+            <Route exact path="/register" render={() => <Register onRegisterSubmit={ this.onRegisterSubmit }/> } />
             <Route exact path="/results" component={SearchContainer} />
             <Route exact path="/" component={SearchContainer} />
           </Switch>
         </div>
-      // </Router>
     )
   }
 }
