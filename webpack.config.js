@@ -26,7 +26,7 @@ module.exports = {
     ],
   },
   devServer: {
-    hot: true,
+    compress: true,
     publicPath: '/build/',
     historyApiFallback: true,
     proxy: {

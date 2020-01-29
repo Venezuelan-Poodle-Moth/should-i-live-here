@@ -1,10 +1,10 @@
 import React from 'react';
-import { Link, Redirect } from 'react-router-dom';
+import { Link, Redirect, withRouter } from 'react-router-dom';
 
 const Login = (props) => {
   const { isLogged } = props;
   return isLogged ? (
-    <Redirect to='/results' />
+    <Redirect to='/results' /> // we can use push here
   ) : (
     <form className="auth" onSubmit={ props.onLoginSubmit }>
       <input type="text" placeholder="Enter email" required />
@@ -15,4 +15,4 @@ const Login = (props) => {
   )
 }
 
-export default Login;
+export default withRouter(Login);
