@@ -20,6 +20,6 @@ router.post('/',
   (req, res) => {
     // res.locals.data will be an array of objects sent to the front end
   return res.status(200).json(res.locals.data);
-})
+});
 
 module.exports = router;
