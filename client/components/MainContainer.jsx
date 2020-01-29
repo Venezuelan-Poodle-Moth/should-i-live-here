@@ -33,6 +33,7 @@ class MainContainer extends Component {
     const email = e.target[1].value;
     const password = e.target[2].value;
     this.props.userCreateFetch(name, email, password);
+    this.props.history.push('/');
   }
 
   onLoginSubmit(e) {
