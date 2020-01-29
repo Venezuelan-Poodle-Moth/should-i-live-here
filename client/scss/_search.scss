@@ -73,10 +73,12 @@
 }
 
 .search-results {
+  position: relative;
   display: flex;
   flex-wrap: wrap;
   width: 100%;
   max-width: 1200px;
+  margin-top: 490px;
 }
 
 .search-result {
@@ -86,11 +88,10 @@
   margin: 5px;
   border: 1px solid #333;
   border-radius: 5px;
-  margin-top: 480px;
 }
 
 .mapContainer {
-  margin-left: 85px;
+  margin-left: 12rem;
   display: inline-block;
   width: 100%;
 }
