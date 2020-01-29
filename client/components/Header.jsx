@@ -13,7 +13,7 @@ const Header = (props) => {
         <span className="logo">Should I Live Here?</span>
       </Link>
       {/* onClick value refers to Redux thunk action */}
-      <Link className="cta" to="/logout" onClick={props.onLogoutSubmit}>Log Out</Link>
+      <button className="cta"onClick={props.onLogoutSubmit}>Log Out</button>
     </nav>
   ) : (
     <nav className="navigation">
@@ -21,8 +21,8 @@ const Header = (props) => {
         <span className="logo">Should I Live Here?</span>
       </Link>
       <div>
-        <Link to="/user/login">Login</Link>
-        <Link className="cta" to="/user/register">Create Account</Link>
+        <Link to="/login">Login</Link>
+        <Link className="cta" to="/register">Create Account</Link>
       </div>
     </nav>
   )

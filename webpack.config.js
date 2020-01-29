@@ -21,12 +21,12 @@ module.exports = {
       },
       {
         test: /\.scss/,
-        use: ['style-loader', 'css-loader', 'sass-loader']
+        use: ['style-loader', 'css-loader', 'sass-loader'],
       },
     ],
   },
   devServer: {
-    hot: true,
+    compress: true,
     publicPath: '/build/',
     historyApiFallback: true,
     proxy: {

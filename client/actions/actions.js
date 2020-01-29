@@ -3,7 +3,7 @@
  * Action creators
  */
 import * as types from '../constants/actionTypes';
-
+import { browserHistory } from 'react-router-dom';
 /* SEARCH API */
 
 /* Redux thunk responsible for inputting an address and making
@@ -88,12 +88,21 @@ export function userCreateFetch(name, email, password) {
 }
 /* Redux thunk is required to log users out */
 export function userLogout() {
-  return (dispatch) => fetch('/user/logout')
-    .then((res) => res.json())
-    .then((data) => {
-      dispatch({
-        type: types.LOGOUT,
-        payload: data,
-      });
-    });
+  // return (dispatch) => fetch('/user/logout')
+  //   .then((res) => res.json())
+  //   .then((data) => {
+  //     dispatch({
+  //       type: types.LOGOUT,
+  //       payload: data,
+  //     });
+  //   });
+  return (
+    {
+      type: types.LOGOUT,
+    }
+  );
+  // return dispatch => {
+  //   dispatch({ type: types.LOGOUT });
+  //   history.push('/logout');
+  // };
 }
