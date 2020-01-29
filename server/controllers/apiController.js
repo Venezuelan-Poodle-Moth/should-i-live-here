@@ -46,6 +46,7 @@ apiController.getData = (req, res, next) => {
         borough: elem.borough,
         complaintType: elem.complaint_type,
         description: elem.descriptor,
+        location: elem.location, // location: {latitude: '40', longitude: '-73'}
       }));
       res.locals.data = filteredData;
     })

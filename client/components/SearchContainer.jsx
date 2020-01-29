@@ -28,10 +28,12 @@ class SearchContainer extends Component {
 
   render() {
     return (
-      <SearchResults 
-        address={this.onSearchSubmit} 
-        results={this.props.results}
-      />
+      <div>
+        <SearchResults 
+          address={this.onSearchSubmit} 
+          results={this.props.results}
+        />
+      </div>
     );
   }
 }
