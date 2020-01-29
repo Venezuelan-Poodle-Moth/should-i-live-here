@@ -44,6 +44,10 @@ userController.verifyUser = (req, res, next) => {
         message: { err: 'there was an error querying the database' },
       });
     }
+
+    // check if the provided email is in DB - if it's not - user.rows[0] is undefined
+    if (!user.rows[0]) { res.locals.user = {}; return next(); }
+    
     res.locals.user = user.rows[0];
     // utilizing bcrypt to compare our stored hashed/encrypted password against inputted password
     bcrypt.compare(password, user.rows[0].hash, (err, response) => {
