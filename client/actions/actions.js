@@ -9,7 +9,7 @@ import * as types from '../constants/actionTypes';
 /* Redux thunk responsible for inputting an address and making
 a request to the NYC Open Data 311 Complaints API */
 
-export const addressSearch = (address, borough) => (dispatch) => {
+export const addressSearch = (address, borough, userId) => (dispatch) => {
   const config = {
     method: 'POST',
     headers: {
@@ -18,6 +18,7 @@ export const addressSearch = (address, borough) => (dispatch) => {
     body: JSON.stringify({
       address,
       borough,
+      userId,
     }),
   };
   fetch('/api', config)
@@ -88,12 +89,9 @@ export function userCreateFetch(name, email, password) {
 }
 /* Redux thunk is required to log users out */
 export function userLogout() {
-  return (dispatch) => fetch('/user/logout')
-    .then((res) => res.json())
-    .then((data) => {
-      dispatch({
-        type: types.LOGOUT,
-        payload: data,
-      });
-    });
+  console.log('userLogout');
+  return ({
+    type: types.LOGOUT,
+    payload: [],
+  });
 }

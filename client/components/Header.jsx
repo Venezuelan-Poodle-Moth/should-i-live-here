@@ -9,19 +9,16 @@ const Header = (props) => {
   const { isLogged } = props;
   return isLogged ? (
     <nav className="navigation">
-      <Link to="/results">
-        <span className="logo">Should I Live Here?</span>
+      <span className="logo">Should I Live Here?</span>
+      <Link className="cta" to="/" onClick={props.onLogoutSubmit}>
+        Log Out
       </Link>
-      {/* onClick value refers to Redux thunk action */}
-      <Link className="cta" to="/logout" onClick={props.onLogoutSubmit}>Log Out</Link>
     </nav>
   ) : (
     <nav className="navigation">
-      <Link to="/results">
-        <span className="logo">Should I Live Here?</span>
-      </Link>
+      <span className="logo">Should I Live Here?</span>
       <div>
-        <Link to="/user/login">Login</Link>
+        <Link to="/">Login</Link>
         <Link className="cta" to="/user/register">Create Account</Link>
       </div>
     </nav>
