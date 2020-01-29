@@ -36,6 +36,7 @@ userController.verifyUser = (req, res, next) => {
   console.log('verifyUser controller hit');
   // taking in only email and password upon login attempt
   const { email, password } = req.body;
+  console.log("Hello, I'm a user!", email, password);
   // sending get/select request to database to check for unique email
   db.query('SELECT * FROM Users WHERE email = $1', [email], (error, user) => {
     if (error) {
@@ -44,6 +45,7 @@ userController.verifyUser = (req, res, next) => {
         message: { err: 'there was an error querying the database' },
       });
     }
+
     res.locals.user = user.rows[0];
     // utilizing bcrypt to compare our stored hashed/encrypted password against inputted password
     bcrypt.compare(password, user.rows[0].hash, (err, response) => {
