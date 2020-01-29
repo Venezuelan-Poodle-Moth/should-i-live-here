@@ -13,6 +13,17 @@ app.use(cookieParser());
 
 app.use(express.urlencoded({ extended: true }));
 
+// flow test for incoming requests
+app.use((req, res, next) => {
+  console.log(`
+    ********* FLOW TEST **********
+    MEDTHOD: ${req.method}
+    URL: ${req.url}
+    BODY: ${JSON.stringify(req.body)}
+  `);
+  return next();
+});
+
 const apiRouter = require('./routes/apiRouter');
 const userRouter = require('./routes/userRouter');
 
@@ -29,16 +40,7 @@ app.get('/', cookieController.setCookie, (req, res) => {
   res.sendFile(path.resolve(__dirname, '../index.html'));
 });
 
-// flow test for incoming requests
-app.use((req, res, next) => {
-  console.log(`
-    ********* FLOW TEST **********
-    MEDTHOD: ${req.method}
-    URL: ${req.url}
-    BODY: ${JSON.stringify(req.body)}
-  `);
-  return next();
-});
+
 
 // global error handler
 app.use((err, req, res, next) => {

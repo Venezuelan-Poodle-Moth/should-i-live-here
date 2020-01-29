@@ -10,7 +10,7 @@ const Login = (props) => {
       <input type="text" placeholder="Enter email" required />
       <input type="password" placeholder="Enter password" required />
       <button>Log In</button>
-      <p className="message">Not registered? <Link to="/register">Create an account</Link></p>
+      <p className="message">Not registered? <Link to="/user/register">Create an account</Link></p>
     </form>
   )
 }

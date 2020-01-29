@@ -6,10 +6,11 @@ import * as actions from '../actions/actions.js';
 
 const mapStateToProps = (state) => ({
   results: state.search.current_results,
+  userId: state.auth.currentUser.id,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  addressSearch: (address, borough) => dispatch(actions.addressSearch(address, borough)),
+  addressSearch: (address, borough, userId) => dispatch(actions.addressSearch(address, borough, userId)),
 });
 
 class SearchContainer extends Component {
@@ -23,7 +24,8 @@ class SearchContainer extends Component {
     e.preventDefault();
     const address = e.target[0].value;
     const borough = e.target[1].value;
-    this.props.addressSearch(address, borough);
+    const id = this.props.userId;
+    this.props.addressSearch(address, borough, id);
   }
 
   render() {
