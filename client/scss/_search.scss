@@ -69,6 +69,7 @@
     text-transform: uppercase;
     border: none;
     outline: none;
+    cursor: pointer;
   }
 }
 
@@ -94,4 +95,18 @@
   margin-left: 12rem;
   display: inline-block;
   width: 100%;
+}
+
+.google-places-autocomplete__suggestions-container {
+  background-color: white !important;
+  padding: 15px;
+}
+
+.google-places-autocomplete__suggestions-container:empty{
+  display: none !important;
+}
+
+.google-places-autocomplete__suggestion:hover {
+  color: blue;
+  cursor: pointer;
 }

@@ -1,10 +1,14 @@
 import React, { Component } from 'react';
 import SearchResult from './SearchResult.jsx';
 import MapContainer from './GoogleMap.jsx';
+import SearchBar from './SearchBar.jsx';
 
 class SearchResults extends Component {
   render() {
     const { results } = this.props;
+
+    const mapResults = results && results != undefined && <MapContainer location={results[0].location}/>;
+
     const searchResults = results && results.map(({ address, borough, complaintType, date, description }, i) => {
       return (
         <SearchResult 
@@ -20,7 +24,8 @@ class SearchResults extends Component {
 
     return (
       <div className="results">
-        <form className="search" onSubmit={this.props.address}>
+        <SearchBar address={this.props.address} />
+        {/* <form className="search" onSubmit={this.props.address}>
           <input type="text" placeholder="SEARCH FOR YOUR ADDRESS" />
           <select className="borough">
             <option value="brooklyn">Brooklyn</option>
@@ -30,9 +35,9 @@ class SearchResults extends Component {
             <option value="staten island">Staten Island</option>
           </select>
           <button>Search</button>
-        </form>
+        </form> */}
         <div className="mapContainer">
-          {results && <MapContainer location={results[0].location}/>}
+          {mapResults}
         </div>
         <div className="search-results">
           {searchResults}
