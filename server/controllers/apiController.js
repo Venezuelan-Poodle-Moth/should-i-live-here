@@ -11,7 +11,8 @@ const apiController = {};
 
 // function to format string correctly with regex for database query
 const format = (str) => {
-  const string = str.replace(/(th)|(st)|(nd)|(rd)\b/i, '')
+  const string = str
+    .replace(/(th)|(st)|(nd)|(rd)\b/i, '')
     .replace(/st/i, 'STREET')
     .replace(/ave?/i, 'AVENUE')
     .replace(/blvd/i, 'BOULEVARD')
@@ -31,29 +32,36 @@ const format = (str) => {
 apiController.getData = (req, res, next) => {
   const address = format(req.body.address);
   const borough = req.body.borough.toUpperCase();
-  fetch(`https://data.cityofnewyork.us/resource/erm2-nwe9.json?incident_address='${address}'&$where=borough='${borough}'`,
+  fetch(
+    `https://data.cityofnewyork.us/resource/erm2-nwe9.json?incident_address='${address}'&$where=borough='${borough}'`,
     {
       headers: {
         'Content-Type': 'application/json',
-        'X-App-Token': appToken,
-      },
-    })
+        'X-App-Token': appToken
+      }
+    }
+  )
     .then((data) => data.json())
     .then((data) => {
+      console.log('data from api call:', data);
+      // if we receive no results from our request to the api, filtered data will be an empty array that we send to the front end via res.locals. This will then be handled by the frontend.
       const filteredData = data.map((elem) => ({
         date: elem.created_date,
         address: elem.incident_address,
         borough: elem.borough,
         complaintType: elem.complaint_type,
-        description: elem.descriptor,
+        description: elem.descriptor
       }));
       res.locals.data = filteredData;
+      console.log('filteredData', filteredData);
     })
     .then(next)
-    .catch((err) => next({
-      log: err,
-      message: { err: 'there was an error fetching 311 data' },
-    }));
+    .catch((err) =>
+      next({
+        log: err,
+        message: { err: 'there was an error fetching 311 data' }
+      })
+    );
 };
 
 module.exports = apiController;
