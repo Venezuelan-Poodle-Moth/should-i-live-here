@@ -8,7 +8,8 @@ const initialState = {
 const authReducer = (state = initialState, action) => {
   switch (action.type) {
     case SIGN_IN:
-      if (action.payload === null) {
+      console.log('payload:', action.payload);
+      if (!action.payload.email) {
         return state;
       }
       return {
