@@ -33,6 +33,7 @@
     "bcryptjs": "^2.4.3",
     "connect-pg-simple": "^6.1.0",
     "cookie-parser": "^1.4.4",
+    "emailjs-com": "^2.4.1",
     "es6-promise": "^4.2.8",
     "express": "^4.17.1",
     "express-session": "^1.17.0",

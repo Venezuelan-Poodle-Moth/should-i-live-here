@@ -25,7 +25,7 @@ class SearchResults extends Component {
       searchResults = <div className="empty-result"><p>No Results Found!</p></div>
     }
 
-    // console.log("searchResults: ", searchResults);
+    console.log("searchResults: ", searchResults);
 
     return (
       <div className="results">
