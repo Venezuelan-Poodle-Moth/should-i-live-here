@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Redirect, Link } from 'react-router-dom';
 import GoogleLogin from 'react-google-login';
 
 const Register = (props) => {
