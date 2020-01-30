@@ -1,7 +1,7 @@
 const { Pool } = require('pg');
 
 // URI to sql database hosted on ElephantSQL
-const PG_URI = 'postgres://sattzzrt:K_2Lb2bEifiBN_oKJwSKBu3Q65rRerCr@rajje.db.elephantsql.com:5432/sattzzrt';
+const PG_URI = 'postgres://rqwzfyey:SClwgb4ZkpEnSuQpxtI1La-tb94ZGNPZ@rajje.db.elephantsql.com:5432/rqwzfyey';
 
 // creating a pool so that we don't overload the psql server with multiple queries
 const pool = new Pool({

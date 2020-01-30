@@ -61,4 +61,37 @@ userController.verifyUser = (req, res, next) => {
   });
 };
 
+
+userController.verifyGmailUser = (req, res, next) => {
+  console.log('verifyGmailUser controller hit');
+  // taking in only email and password upon login attempt
+  const { email } = req.body;
+  console.log(email);
+  // sending get/select request to database to check for unique email
+  db.query('SELECT * FROM gmailusers WHERE email = $1', [email], (error, user) => {
+    if (error) {
+      return next({
+        log: error,
+        message: { err: 'there was an error querying the database' },
+      });
+    }
+    // res.locals.user = user.rows[0];
+    // console.log(user);
+
+    if (!user.rows[0]) {
+      db.query('INSERT INTO gmailusers (email) VALUES ($1);', [email], (error, user) => {
+        if (error) {
+          return next({
+            log: error,
+            message: { err: 'there was an error querying the database' },
+          });
+        }
+        //res.locals.gmailLogin = email;
+      })
+    }
+    res.locals.gmailLogin = true;
+    return next();
+  });
+};
+
 module.exports = userController;
