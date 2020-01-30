@@ -86,14 +86,8 @@ export function userCreateFetch(name, email, password) {
       });
     });
 }
-/* Redux thunk is required to log users out */
-export function userLogout() {
-  return (dispatch) => fetch('/user/logout')
-    .then((res) => res.json())
-    .then((data) => {
-      dispatch({
-        type: types.LOGOUT,
-        payload: data,
-      });
-    });
-}
+
+export const userLogout = () => ({
+    type: types.LOGOUT, 
+    payload: null
+});
