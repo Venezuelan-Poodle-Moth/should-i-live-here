@@ -48,7 +48,13 @@ apiController.getData = (req, res, next) => {
     })
     .then((data) => data.json())
     .then((data) => {
-      const filteredData = data.map((elem) => ({
+      // split off year of created_date element and filter data to only inlcude entries in the past 3 years
+      let filtered = data.filter((el) => {
+        let okayDates = el.created_date.split('-')[0];
+        return (okayDates === '2018' || okayDates === '2019' || okayDates === '2020');
+      })
+
+      const filteredData = filtered.map((elem) => ({
         date: elem.created_date,
         address: elem.incident_address,
         borough: elem.borough,
@@ -56,6 +62,7 @@ apiController.getData = (req, res, next) => {
         description: elem.descriptor,
         location: elem.location, // location: {latitude: '40', longitude: '-73'}
       }));
+      // console.log(filteredData);
       res.locals.data = filteredData;
     })
     .then(next)
