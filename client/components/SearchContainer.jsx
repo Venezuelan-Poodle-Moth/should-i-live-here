@@ -24,6 +24,7 @@ class SearchContainer extends Component {
     const address = e.target[0].value;
     const borough = e.target[1].value;
     this.props.addressSearch(address, borough);
+    this.forceUpdate();
   }
 
   render() {
