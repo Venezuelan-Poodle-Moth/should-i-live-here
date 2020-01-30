@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "jest --verbose",
+    "test:watch": "jest --watch",
     "build": "NODE_ENV=production webpack",
     "start": "NODE_ENV=development nodemon server/server.js",
     "dev": "NODE_ENV=development nodemon server/server.js & NODE_ENV=development webpack-dev-server --open"
@@ -13,7 +14,8 @@
   "author": "",
   "license": "ISC",
   "jest": {
-    "verbose": true
+    "verbose": true,
+    "snapshotSerializers": ["enzyme-to-json/serializer"]
   },
   "devDependencies": {
     "@babel/core": "^7.8.3",
@@ -23,6 +25,9 @@
     "babel-loader": "^8.0.6",
     "babel-polyfill": "^6.26.0",
     "css-loader": "^3.4.2",
+    "enzyme": "^3.11.0",
+    "enzyme-adapter-react-16": "^1.15.2",
+    "enzyme-to-json": "^3.4.3",
     "jest": "^25.1.0",
     "nodemon": "^2.0.2",
     "redux-devtools": "^3.5.0",
