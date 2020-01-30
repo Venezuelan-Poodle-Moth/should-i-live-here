@@ -9,4 +9,6 @@ router.post('/register', userController.createUser, (req, res) => res.status(200
 // route & middleware for verifying a user login attempt
 router.post('/login', userController.verifyUser, (req, res) => res.status(200).json(res.locals.user));
 
+
+
 module.exports = router;

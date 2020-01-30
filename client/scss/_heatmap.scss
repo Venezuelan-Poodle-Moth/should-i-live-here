@@ -1,0 +1,14 @@
+@import url("https://api.tiles.mapbox.com/mapbox-gl-js/v1.7.0/mapbox-gl.css");
+
+.heatmapWrapper {
+  display: flex;
+  width: 100%;
+  min-height: 70vh;
+  max-width: 1200px;
+  margin-top: 2%;
+}
+
+.mapContainer {
+  width: 100%;
+  height: 100%;
+}

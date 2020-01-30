@@ -1,19 +1,20 @@
 import React, { Component } from 'react';
 import SearchResult from './SearchResult.jsx';
+import Heatmap from './Heatmap.jsx';
 
 class SearchResults extends Component {
   render() {
     const { results } = this.props;
     // console.log("results is: ", results);
-    
+
     let searchResults;
 
     if (results !== null && results.length !== 0) {
       searchResults = results && results.map(({ address, borough, complaintType, date, description }, i) => {
         return (
-          <SearchResult 
+          <SearchResult
             key={`result${i}`}
-            address={address} 
+            address={address}
             borough={borough}
             complaintType={complaintType}
             date={date}
@@ -21,7 +22,7 @@ class SearchResults extends Component {
           />
         )
       })
-    } else if (JSON.stringify(results) === '[]'){
+    } else if (JSON.stringify(results) === '[]') {
       searchResults = <div className="empty-result"><p>No Results Found!</p></div>
     }
 
@@ -43,6 +44,11 @@ class SearchResults extends Component {
         <div className="search-results">
           {searchResults}
         </div>
+        {results !== null && JSON.stringify(results) !== '[]' &&
+          <div className="heatmapWrapper">
+            <Heatmap />
+          </div>
+        }
       </div>
     )
   }
