@@ -33,6 +33,8 @@ const geoJSONGenerator = array => {
 const Heatmap = () => {
   let mapContainer;
 
+  // This function takes two parameters. The first parameter is a GeoJSON-formatted object. 
+  // The second parameter is an array of coordinates for the home icon that is shown on the map.
   const mapbox = (heatmapData, iconCoordinates) => {
     const map = new mapboxgl.Map({
       container: mapContainer,
