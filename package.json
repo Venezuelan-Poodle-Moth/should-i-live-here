@@ -15,7 +15,9 @@
   "license": "ISC",
   "jest": {
     "verbose": true,
-    "snapshotSerializers": ["enzyme-to-json/serializer"]
+    "snapshotSerializers": [
+      "enzyme-to-json/serializer"
+    ]
   },
   "devDependencies": {
     "@babel/core": "^7.8.3",
