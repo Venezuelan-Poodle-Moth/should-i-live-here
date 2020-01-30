@@ -28,8 +28,12 @@ const format = (str) => {
 
   //* new formatting style using the google places api
   const arr = str.toUpperCase().split(',');
-  arr[0] = arr[0].replace(/(th)|(st)|(nd)|(rd)\b/i, '');
+  arr[0] = arr[0].replace(/(\d+)th/i, "$1");
+  arr[0] = arr[0].replace(/(\d+)st/i, "$1");
+  arr[0] = arr[0].replace(/(\d+)nd/i, "$1");
+  arr[0] = arr[0].replace(/(\d+)rd/i, "$1");
   arr[1] = arr[1].replace(' ', '');
+  console.log('address: ', arr);
   return arr;
 };
 
