@@ -4,4 +4,9 @@
 
 body {
   font-family: $font;
+  // background-image: url("../../city.jpg");
+  background-image: url("https://images.unsplash.com/photo-1470219556762-1771e7f9427d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1489&q=80");
+  background-size: cover;
+  background-attachment: fixed;
 }
+
