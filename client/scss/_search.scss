@@ -10,7 +10,7 @@
   position: relative;
   margin: 44px auto;
   padding: 30px;
-  background: $search;
+  // background: $search;
   input {
     border: none;
     outline: none;
@@ -19,7 +19,8 @@
     min-width: 500px;
     background: #fafafa;
     border: 1px solid #aaa;
-    border-radius: 5px 0 0 5px; 
+    // border-radius: 5px 0 0 5px; 
+    border-radius: 24px 0 0 24px;
     &::placeholder {
       color: #aaa;
     }
@@ -60,11 +61,12 @@
     }
   }
   button {
-    background: $cta;
+    // background: $cta;
+    background-color: #210980;
     color: #fff;
     font-size: 1rem;
     border: 2px solid #aaa;
-    border-radius: 0 5px 5px 0;
+    border-radius: 0 24px 24px 0;
     padding: 18px;
     text-transform: uppercase;
     border: none;
@@ -85,12 +87,16 @@
   margin: 5px;
   border: 1px solid #333;
   border-radius: 5px;
+  text-align: center;
+ 
 }
 
 .empty-result {
   padding: 10px;
   width: 22%;
-  margin: 5px;
-  border: 1px solid #333;
-  border-radius: 5px;
+  margin: auto auto;
+  font-size: 1.6em;
+  font-weight: bold;
+  text-align: center;
+ 
 }
