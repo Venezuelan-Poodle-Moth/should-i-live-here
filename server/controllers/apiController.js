@@ -48,11 +48,16 @@ apiController.getData = (req, res, next) => {
     })
     .then((data) => data.json())
     .then((data) => {
+      // sort data by date
+      data.sort((a, b) => {
+        return Date.parse(b.created_date) - Date.parse(a.created_date);
+      });
       // split off year of created_date element and filter data to only inlcude entries in the past 3 years
+      // parse dates into javascript readable date format
+      // only show dates that are within 3 years of the current date
       let filtered = data.filter((el) => {
-        let okayDates = el.created_date.split('-')[0];
-        return (okayDates === '2018' || okayDates === '2019' || okayDates === '2020');
-      })
+        return (Date.parse(el.created_date) > (Date.now() - 94670856000));
+      });
 
       const filteredData = filtered.map((elem) => ({
         date: elem.created_date,
