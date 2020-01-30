@@ -28,8 +28,12 @@ const format = (str) => {
 
   //* new formatting style using the google places api
   const arr = str.toUpperCase().split(',');
-  arr[0] = arr[0].replace(/(th)|(st)|(nd)|(rd)\b/i, '');
+  arr[0] = arr[0].replace(/(\d+)th/i, "$1");
+  arr[0] = arr[0].replace(/(\d+)st/i, "$1");
+  arr[0] = arr[0].replace(/(\d+)nd/i, "$1");
+  arr[0] = arr[0].replace(/(\d+)rd/i, "$1");
   arr[1] = arr[1].replace(' ', '');
+  console.log('address: ', arr);
   return arr;
 };
 
@@ -48,7 +52,18 @@ apiController.getData = (req, res, next) => {
     })
     .then((data) => data.json())
     .then((data) => {
-      const filteredData = data.map((elem) => ({
+      // sort data by date
+      data.sort((a, b) => {
+        return Date.parse(b.created_date) - Date.parse(a.created_date);
+      });
+      // split off year of created_date element and filter data to only inlcude entries in the past 3 years
+      // parse dates into javascript readable date format
+      // only show dates that are within 3 years of the current date
+      let filtered = data.filter((el) => {
+        return (Date.parse(el.created_date) > (Date.now() - 94670856000));
+      });
+
+      const filteredData = filtered.map((elem) => ({
         date: elem.created_date,
         address: elem.incident_address,
         borough: elem.borough,
@@ -56,6 +71,7 @@ apiController.getData = (req, res, next) => {
         description: elem.descriptor,
         location: elem.location, // location: {latitude: '40', longitude: '-73'}
       }));
+      // console.log(filteredData);
       res.locals.data = filteredData;
     })
     .then(next)
