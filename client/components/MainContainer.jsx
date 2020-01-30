@@ -29,12 +29,15 @@ class MainContainer extends Component {
     this.onGoogleSignin = this.onGoogleSignin.bind(this);
   }
   
-  onRegisterSubmit(e) {
+  async onRegisterSubmit(e) {
     e.preventDefault();
     const name = e.target[0].value;
     const email = e.target[1].value;
     const password = e.target[2].value;
-    this.props.userCreateFetch(name, email, password);
+    await this.props.userCreateFetch(name, email, password);
+    const templateId = 'template_UUGfD8Qb';
+    console.log("User: ", this.props.currentUser);
+    this.sendEmail(templateId, { message_html: 'Thank you for creating an account!', to_name: this.props.currentUser.name, to_email: this.props.currentUser.email, from_name: "Team Toe Shoes" });
   }
 
   onLoginSubmit(e) {
@@ -42,6 +45,16 @@ class MainContainer extends Component {
     const email = e.target[0].value;
     const password = e.target[1].value;
     this.props.userLoginFetch(email, password);
+  }
+
+  sendEmail(id, params){
+    window.emailjs.send(
+      'gmail', id, 
+      params
+    ).then(res => {
+      console.log("Email sent");
+    })
+    .catch(err => console.log('Oh well, you failed. Here some thoughts on the error that occured: ', err))
   }
 
   onLogoutSubmit(e) {
