@@ -69,14 +69,17 @@
     text-transform: uppercase;
     border: none;
     outline: none;
+    cursor: pointer;
   }
 }
 
 .search-results {
+  position: relative;
   display: flex;
   flex-wrap: wrap;
   width: 100%;
   max-width: 1200px;
+  margin-top: 490px;
 }
 
 .search-result {
@@ -86,11 +89,24 @@
   margin: 5px;
   border: 1px solid #333;
   border-radius: 5px;
-  margin-top: 480px;
 }
 
 .mapContainer {
-  margin-left: 85px;
+  margin-left: 12rem;
   display: inline-block;
   width: 100%;
+}
+
+.google-places-autocomplete__suggestions-container {
+  background-color: white !important;
+  padding: 15px;
+}
+
+.google-places-autocomplete__suggestions-container:empty{
+  display: none !important;
+}
+
+.google-places-autocomplete__suggestion:hover {
+  color: blue;
+  cursor: pointer;
 }

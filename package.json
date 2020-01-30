@@ -30,6 +30,7 @@
     "enzyme-to-json": "^3.4.3",
     "jest": "^25.1.0",
     "nodemon": "^2.0.2",
+    "react-google-places-autocomplete": "^1.6.2",
     "redux-devtools": "^3.5.0",
     "redux-devtools-extension": "^2.13.8",
     "redux-thunk": "^2.3.0",
