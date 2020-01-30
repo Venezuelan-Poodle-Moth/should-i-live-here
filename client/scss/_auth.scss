@@ -29,7 +29,8 @@
   button {
     text-transform: uppercase;
     outline: 0;
-    background: $cta;
+    // background: $cta;
+    background-color: #210980;
     color: #FFF;
     box-shadow: 0 3px 15px rgba(200, 200, 200, 0.5);
     width: 100%;
@@ -45,7 +46,7 @@
     &:hover, 
     &:active, 
     &:focus {
-        background: $ctaDarken;
+       font-weight: bolder;;
     }
   }
   .message {
