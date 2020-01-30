@@ -16,6 +16,7 @@ const Login = (props) => {
       onSuccess = {props.googleLog}
       onFailure = {props.googleLog}
       style = {{margin: '20px'}}></GoogleLogin>
+      <a href="https://github.com/login/oauth/authorize?scope=user:email&client_id=09fe246fe5c73039cbd1">Click here to begin!</a>
       <p className="message">Not registered? <Link to="/register">Create an account</Link></p>
     </form>
   )
